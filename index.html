@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEROFLUX | Climatización Azul  Ingeniería HVAC</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Manrope -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* Paleta exclusiva Light Mode en gama de Azules y Celestes (Sin tonos negros) */
+    :root {
+      --bg-pure: #FFFFFF;
+      --sky-ice: #F0F9FF;
+      --sky-light: #E0F2FE;
+      --sky-border: #BAE6FD;
+      --sky-vibrant: #38BDF8;
+      --blue-electric: #0284C7;
+      --blue-cobalt: #1D4ED8;
+      --blue-navy: #0C4A6E;
+      --blue-deep: #1E3A8A;
+      --blue-slate: #3B6998;
+      --blue-muted: #5B85B0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: var(--bg-pure);
+      color: var(--blue-navy);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Retícula geométrica celeste sutil de fondo */
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .sky-aura {
+      position: absolute;
+      top: -90px;
+      right: 8%;
+      width: 460px;
+      height: 460px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, rgba(224, 242, 254, 0) 72%);
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Botones Pill Perfectos (border-radius: 9999px) */
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      height: 50px;
+      padding: 0 30px;
+      border-radius: 9999px;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 0.925rem;
+      transition: all 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-pill-primary {
+      background: linear-gradient(135deg, var(--blue-electric) 0%, var(--blue-cobalt) 100%);
+      color: #FFFFFF;
+      border: 1px solid transparent;
+      box-shadow: 0 10px 24px -6px rgba(2, 132, 199, 0.42);
+    }
+
+    .btn-pill-primary:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #0369A1 0%, #1E40AF 100%);
+      box-shadow: 0 14px 28px -6px rgba(29, 78, 216, 0.48);
+    }
+
+    .btn-pill-outline {
+      background-color: var(--sky-ice);
+      color: var(--blue-electric);
+      border: 1.5px solid var(--sky-border);
+    }
+
+    .btn-pill-outline:hover {
+      background-color: var(--sky-light);
+      border-color: var(--sky-vibrant);
+      color: var(--blue-cobalt);
+      transform: translateY(-2px);
+    }
+
+    /* Celdas Bento Grid en tonos celestes y blancos */
+    .bento-cell {
+      border-radius: 26px;
+      transition: border-color 0.25s ease, background-color 0.25s ease;
+    }
+
+    .bento-ice {
+      background-color: var(--sky-ice);
+      border: 1px solid var(--sky-light);
+    }
+
+    .bento-ice:hover {
+      border-color: var(--sky-border);
+    }
+
+    .bento-sky {
+      background-color: var(--sky-light);
+      border: 1px solid var(--sky-border);
+    }
+
+    .bento-sky:hover {
+      border-color: var(--sky-vibrant);
+    }
+
+    /* Inputs minimalistas en gama azul */
+    .blue-input {
+      background-color: var(--sky-ice);
+      border: 1.5px solid var(--sky-light);
+      color: var(--blue-navy);
+      border-radius: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .blue-input::placeholder {
+      color: #7FA4C9;
+    }
+
+    .blue-input:focus {
+      outline: none;
+      background-color: #FFFFFF;
+      border-color: var(--blue-electric);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.18);
+    }
+  </style>
+</head>
+<body class="selection:bg-[#BAE6FD] selection:text-[#0C4A6E]">
+
+  <!-- NAVEGACIÓN MINIMALISTA EN AZUL Y BLANCO -->
+  <header class="sticky top-0 z-50 w-full bg-white/85 backdrop-blur-md border-b border-[#E0F2FE]">
+    <nav class="max-w-6xl mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
+      <!-- Marca en Azul Profundo -->
+      <a href="#inicio" class="flex items-center gap-2.5 font-extrabold text-xl tracking-tight text-[#0C4A6E]">
+        <span class="w-3 h-3 rounded-full bg-gradient-to-tr from-[#0284C7] to-[#38BDF8]"></span>
+        <span>AEROFLUX</span>
+      </a>
+
+      <!-- Enlaces Desktop en Azul Pizarra -->
+      <div class="hidden md:flex items-center gap-9 text-sm font-semibold text-[#3B6998]">
+        <a href="#bento-soluciones" class="hover:text-[#0284C7] transition-colors">Servicios</a>
+        <a href="#especialistas" class="hover:text-[#0284C7] transition-colors">Equipo Técnico</a>
+        <a href="#paquetes" class="hover:text-[#0284C7] transition-colors">Paquetes y Precios</a>
+        <a href="#cotizar" class="hover:text-[#0284C7] transition-colors">Agendar</a>
+      </div>
+
+      <!-- Botón Pill en Header -->
+      <div class="hidden md:flex items-center">
+        <a href="#cotizar" class="rounded-full px-5 py-2.5 text-xs font-bold bg-[#E0F2FE] text-[#0284C7] border border-[#BAE6FD] hover:bg-[#0284C7] hover:text-white transition-all">
+          Agendar Visita Técnica
+        </a>
+      </div>
+
+      <!-- Menú Hamburguesa Móvil -->
+      <button id="mobile-menu-btn" aria-label="Abrir menú" class="md:hidden p-2.5 rounded-full text-[#0C4A6E] bg-[#F0F9FF] hover:bg-[#E0F2FE] transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16" />
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Menú Desplegable Móvil -->
+    <div id="mobile-drawer" class="hidden md:hidden px-6 pb-6 pt-3 bg-white/95 backdrop-blur-xl border-b border-[#E0F2FE]">
+      <div class="flex flex-col space-y-3 text-base font-semibold text-[#3B6998]">
+        <a href="#bento-soluciones" class="mobile-link py-2 hover:text-[#0284C7]">Servicios HVAC</a>
+        <a href="#especialistas" class="mobile-link py-2 hover:text-[#0284C7]">Equipo Técnico</a>
+        <a href="#paquetes" class="mobile-link py-2 hover:text-[#0284C7]">Paquetes y Precios</a>
+        <a href="#cotizar" class="mobile-link mt-2 btn-pill btn-pill-primary text-center">Cotizar y Agendar</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION CON AIRE ACONDICIONADO SPLIT EN PARED MINIMALISTA -->
+  <section id="inicio" class="relative pt-12 pb-20 sm:pt-18 sm:pb-28 overflow-hidden bg-gradient-to-b from-[#F0F9FF]/60 via-white to-white">
+    <div class="sky-aura"></div>
+    <div class="hero-grid-bg">
+      <svg class="w-full max-w-5xl h-auto opacity-75" viewBox="0 0 982 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M140 0V520M315 0V520M491 0V520M667 0V520M842 0V520M0 120H982M0 260H982M0 400H982" stroke="url(#blueGridGrad)" stroke-width="1"/>
+        <defs>
+          <radialGradient id="blueGridGrad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(491 260) rotate(90) scale(260 490)">
+            <stop stop-color="#7DD3FC" stop-opacity="0.55"/>
+            <stop offset="1" stop-color="#F0F9FF" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 sm:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        
+        <!-- Columna Editorial Izquierda -->
+        <div class="lg:col-span-6 space-y-7">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E0F2FE] border border-[#BAE6FD] text-xs font-bold tracking-wide text-[#0284C7]">
+            <span class="w-2 h-2 rounded-full bg-[#0284C7]"></span>
+            Climatización Inverter R-32 • Venta y Mantenimiento
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl lg:text-[4.1rem] font-extrabold tracking-[-0.035em] leading-[1.05] text-[#0C4A6E]">
+            Aire Puro.<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#0284C7] via-[#0EA5E9] to-[#1D4ED8]">Frescura</span> Silenciosa.
+          </h1>
+
+          <p class="text-base sm:text-lg text-[#3B6998] max-w-lg leading-relaxed font-normal">
+            Venta, instalación arquitectónica y mantenimiento preventivo de aires acondicionados Split Inverter. Confort térmico azul cristalino ejecutado por especialistas certificadas.
+          </p>
+
+          <!-- Botones Pill Redondeados -->
+          <div class="flex flex-wrap items-center gap-4 pt-1">
+            <a href="#cotizar" class="btn-pill btn-pill-primary">
+              <span>Agendar Instalación</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href="#paquetes" class="btn-pill btn-pill-outline">
+              <span>Ver Paquetes</span>
+            </a>
+          </div>
+
+          <!-- Indicadores Técnicos en Azules -->
+          <div class="pt-6 border-t border-[#E0F2FE] grid grid-cols-3 gap-6 max-w-md">
+            <div>
+              <p class="text-2xl font-extrabold text-[#1D4ED8]">19 dB</p>
+              <p class="text-xs font-medium text-[#5B85B0]">Flujo ultra silencioso</p>
+            </div>
+            <div>
+              <p class="text-2xl font-extrabold text-[#0284C7]">-45%</p>
+              <p class="text-xs font-medium text-[#5B85B0]">Ahorro energético</p>
+            </div>
+            <div>
+              <p class="text-2xl font-extrabold text-[#0C4A6E]">5 Años</p>
+              <p class="text-xs font-medium text-[#5B85B0]">Garantía certificada</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Visual Derecha: Aire Acondicionado Split Blanco Minimalista -->
+        <div class="lg:col-span-6">
+          <div class="relative rounded-[30px] overflow-hidden bg-[#E0F2FE] aspect-[4/3] border border-[#BAE6FD] shadow-[0_20px_50px_-15px_rgba(2,132,199,0.18)]">
+            <img 
+              src="https://images.unsplash.com/photo-1631545806609-4b11303f273c?auto=format&fit=crop&w=1100&q=85" 
+              alt="Unidad interior de aire acondicionado Split Inverter blanco instalado en pared minimalista"
+              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><rect width=%22800%22 height=%22600%22 fill=%22%23E0F2FE%22/><rect x=%22160%22 y=%22160%22 width=%22480%22 height=%22140%22 rx=%2228%22 fill=%22%23FFFFFF%22 stroke=%22%2338BDF8%22 stroke-width=%224%22/><line x1=%22200%22 y1=%22265%22 x2=%22600%22 y2=%22265%22 stroke=%22%230284C7%22 stroke-width=%226%22 stroke-linecap=%22round%22/><circle cx=%22575%22 cy=%22210%22 r=%228%22 fill=%22%230EA5E9%22/><text x=%22400%22 y=%22380%22 font-family=%22sans-serif%22 font-size=%2224%22 font-weight=%22bold%22 fill=%22%230C4A6E%22 text-anchor=%22middle%22>AEROFLUX Split Inverter R-32</text></svg>';"
+              class="w-full h-full object-cover object-center"
+            />
+            <!-- Etiqueta flotante cristal azul -->
+            <div class="absolute bottom-5 left-5 right-5 sm:right-auto bg-white/92 backdrop-blur-md px-5 py-3.5 rounded-full border border-[#BAE6FD] flex items-center gap-3.5">
+              <div class="w-9 h-9 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m-6.36-14.64l12.72 12.72M3 12h18M5.64 18.36L18.36 5.64" />
+                </svg>
+              </div>
+              <div class="pr-2">
+                <p class="text-xs font-extrabold text-[#0C4A6E]">Serie Split AeroPure Inverter</p>
+                <p class="text-[11px] font-medium text-[#3B6998]">Enfriamiento rápido en 30 segundos</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BENTO GRID MINIMALISTA: SERVICIOS Y EQUIPAMIENTO HVAC -->
+  <section id="bento-soluciones" class="py-20 sm:py-28 border-t border-[#E0F2FE] bg-white">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8">
+      
+      <!-- Cabecera de sección -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+        <div>
+          <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-[#0284C7] mb-2">Ingeniería en Climatización</p>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0C4A6E]">
+            Soluciones Integrales de Aire Acondicionado
+          </h2>
+        </div>
+        <p class="text-sm sm:text-base text-[#3B6998] max-w-md">
+          Desde el cálculo de frigorías hasta la instalación limpia y el mantenimiento preventivo de unidades interiores y condensadores exteriores.
+        </p>
+      </div>
+
+      <!-- BENTO GRID ASIMÉTRICO -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        
+        <!-- Celda Bento 1 (Grande Visual - 7 cols): Técnico instalando condensador/unidad AC -->
+        <div class="md:col-span-7 bento-cell bento-ice overflow-hidden flex flex-col justify-between">
+          <div class="relative h-64 sm:h-76 w-full overflow-hidden bg-[#E0F2FE]">
+            <img 
+              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1050&q=85" 
+              alt="Técnico HVAC instalando y calibrando unidad condensadora de aire acondicionado"
+              onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 500%22><rect width=%22800%22 height=%22500%22 fill=%22%23E0F2FE%22/><rect x=%22220%22 y=%22110%22 width=%22360%22 height=%22240%22 rx=%2220%22 fill=%22%23FFFFFF%22 stroke=%22%230284C7%22 stroke-width=%224%22/><circle cx=%22360%22 cy=%22230%22 r=%2280%22 fill=%22%23F0F9FF%22 stroke=%22%2338BDF8%22 stroke-width=%224%22/><text x=%22400%22 y=%22410%22 font-family=%22sans-serif%22 font-size=%2222%22 font-weight=%22bold%22 fill=%22%230C4A6E%22 text-anchor=%22middle%22>Instalacion de Unidades Split y Condensadores</text></svg>';"
+              class="w-full h-full object-cover object-center"
+            />
+          </div>
+          <div class="p-7 sm:p-9">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-[#0284C7]">01 • Instalación Profesional</span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-white text-[#1D4ED8] border border-[#BAE6FD]">Cero Fugas R-32</span>
+            </div>
+            <h3 class="text-2xl font-bold text-[#0C4A6E] mb-2">Montaje de Evaporadores y Condensadores</h3>
+            <p class="text-sm text-[#3B6998] leading-relaxed">
+              Instalación precisa con tubería de cobre aislada, canaleta estética blanca, presurización con nitrógeno y vacío digital certificado para el máximo rendimiento del compresor.
+            </p>
+          </div>
+        </div>
+
+        <!-- Columna Derecha Apilada (5 cols): Dos Celdas Bento -->
+        <div class="md:col-span-5 flex flex-col gap-6">
+          
+          <!-- Celda Bento 2: Mantenimiento Preventivo -->
+          <div class="bento-cell bento-sky p-7 sm:p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="w-11 h-11 rounded-full bg-white text-[#0284C7] flex items-center justify-center mb-5 border border-[#BAE6FD]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+                </svg>
+              </div>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-[#1D4ED8]">02 • Mantenimiento Integral</span>
+              <h3 class="text-xl font-bold text-[#0C4A6E] mt-1 mb-2">Lavado de Turbina y Serpentín</h3>
+              <p class="text-sm text-[#3B6998] leading-relaxed">
+                Limpieza profunda a presión controlada con funda recolectora sin mojar paredes, desinfección antibacteriana de filtros y destape de drenaje.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[#BAE6FD] flex items-center justify-between text-xs font-bold text-[#0284C7]">
+              <span>Aire libre de polvo y ácaros</span>
+              <span>99.9% Higienizado</span>
+            </div>
+          </div>
+
+          <!-- Celda Bento 3: Unidad Exterior & Telemetría -->
+          <div class="bento-cell bento-ice p-7 sm:p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="w-11 h-11 rounded-full bg-[#E0F2FE] text-[#1D4ED8] flex items-center justify-center mb-5 border border-[#BAE6FD]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-[#0284C7]">03 • Diagnóstico y Carga</span>
+              <h3 class="text-xl font-bold text-[#0C4A6E] mt-1 mb-2">Calibración Electrónica Inverter</h3>
+              <p class="text-sm text-[#3B6998] leading-relaxed">
+                Medición de amperaje, revisión de sensores térmicos, tarjetas electrónicas y nivelación exacta de gas refrigerante ecológico R-32 y R-410A.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[#E0F2FE] flex items-center justify-between text-xs font-bold text-[#3B6998]">
+              <span>Manometría digital</span>
+              <span class="text-[#1D4ED8]">Eficiencia A+++</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO TÉCNICO INSTALANDO Y DANDO MANTENIMIENTO A AIRES ACONDICIONADOS -->
+  <section id="especialistas" class="py-20 sm:py-28 bg-[#F0F9FF] border-t border-[#E0F2FE]">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8">
+      
+      <div class="max-w-2xl mb-14">
+        <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-[#0284C7] mb-2">Especialistas HVAC en Campo</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0C4A6E] mb-4">
+          Personal Técnico Instalando y Calibrando
+        </h2>
+        <p class="text-sm sm:text-base text-[#3B6998]">
+          Nuestras ingenieras y técnicas certificadas ejecutan cada montaje y mantenimiento de aire acondicionado con herramientas de precisión y total limpieza en tu hogar u oficina.
+        </p>
+      </div>
+
+      <!-- Grid limpio con fotografías de técnicos instalando aires acondicionados -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Tarjeta Técnica 1 -->
+        <article class="group">
+          <div class="rounded-[26px] overflow-hidden bg-[#E0F2FE] aspect-[4/3] mb-5 border border-[#BAE6FD]">
+            <img 
+              src="https://images.pexels.com/photos/8853502/pexels-photo-8853502.jpeg?auto=compress&cs=tinysrgb&w=900" 
+              alt="Especialista técnica revisando y calibrando aire acondicionado con herramientas HVAC"
+              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80';"
+              class="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-500"
+            />
+          </div>
+          <div class="flex items-center justify-between mb-1.5">
+            <h3 class="text-lg font-bold text-[#0C4A6E]">Ing. Valeria Méndez</h3>
+            <span class="text-xs font-bold text-[#0284C7] bg-white px-3 py-1 rounded-full border border-[#BAE6FD]">Instalación Split</span>
+          </div>
+          <p class="text-xs font-semibold text-[#1D4ED8] mb-2">Líder de Montaje y Tubería de Cobre</p>
+          <p class="text-sm text-[#3B6998] leading-relaxed">
+            Supervisa el anclaje de unidades interiores Split, aislamiento térmico y pruebas de estanqueidad en instalaciones residenciales y comerciales.
+          </p>
+        </article>
+
+        <!-- Tarjeta Técnica 2 -->
+        <article class="group">
+          <div class="rounded-[26px] overflow-hidden bg-[#E0F2FE] aspect-[4/3] mb-5 border border-[#BAE6FD]">
+            <img 
+              src="https://images.pexels.com/photos/3964341/pexels-photo-3964341.jpeg?auto=compress&cs=tinysrgb&w=900" 
+              alt="Técnico de climatización realizando mantenimiento a unidad condensadora exterior de aire acondicionado"
+              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80';"
+              class="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-500"
+            />
+          </div>
+          <div class="flex items-center justify-between mb-1.5">
+            <h3 class="text-lg font-bold text-[#0C4A6E]">Téc. Sofía Castellanos</h3>
+            <span class="text-xs font-bold text-[#0284C7] bg-white px-3 py-1 rounded-full border border-[#BAE6FD]">Mantenimiento</span>
+          </div>
+          <p class="text-xs font-semibold text-[#1D4ED8] mb-2">Especialista en Condensadores y Serpentines</p>
+          <p class="text-sm text-[#3B6998] leading-relaxed">
+            Ejecuta el lavado químico preventivo de unidades condensadoras exteriores y evaporadores interiores para restaurar el enfriamiento óptimo.
+          </p>
+        </article>
+
+        <!-- Tarjeta Técnica 3 -->
+        <article class="group">
+          <div class="rounded-[26px] overflow-hidden bg-[#E0F2FE] aspect-[4/3] mb-5 border border-[#BAE6FD]">
+            <img 
+              src="https://images.pexels.com/photos/4489749/pexels-photo-4489749.jpeg?auto=compress&cs=tinysrgb&w=900" 
+              alt="Ingeniera realizando diagnóstico de presión y carga de refrigerante en aire acondicionado"
+              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1631545806609-4b11303f273c?auto=format&fit=crop&w=800&q=80';"
+              class="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-500"
+            />
+          </div>
+          <div class="flex items-center justify-between mb-1.5">
+            <h3 class="text-lg font-bold text-[#0C4A6E]">Ing. Camila Navarro</h3>
+            <span class="text-xs font-bold text-[#0284C7] bg-white px-3 py-1 rounded-full border border-[#BAE6FD]">Carga Gas R-32</span>
+          </div>
+          <p class="text-xs font-semibold text-[#1D4ED8] mb-2">Especialista en Termodinámica Inverter</p>
+          <p class="text-sm text-[#3B6998] leading-relaxed">
+            Encargada de calibración de presiones con manómetros digitales, configuración de control Wi-Fi y optimización del consumo eléctrico.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE PRECIOS COMO PAQUETES DISPUESTOS EN VERTICAL -->
+  <section id="paquetes" class="py-20 sm:py-28 bg-white border-t border-[#E0F2FE]">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8">
+      
+      <!-- Cabecera centrada -->
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-[#F0F9FF] border border-[#BAE6FD] text-xs font-extrabold uppercase tracking-[0.16em] text-[#0284C7] mb-3">
+          Tarifas Transparentes
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0C4A6E] mb-3">
+          Paquetes de Climatización y Mantenimiento
+        </h2>
+        <p class="text-sm sm:text-base text-[#3B6998]">
+          Elige el paquete vertical que mejor se adapte a tu espacio. Todos incluyen garantía escrita y atención por especialistas certificadas.
+        </p>
+      </div>
+
+      <!-- LISTA VERTICAL DE PAQUETES (APILADOS UNO DEBAJO DEL OTRO) -->
+      <div class="flex flex-col space-y-6">
+
+        <!-- PAQUETE VERTICAL 1: Mantenimiento Preventivo Plus -->
+        <div class="rounded-[28px] bg-[#F0F9FF] border border-[#BAE6FD] p-7 sm:p-9 transition-all hover:border-[#38BDF8]">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="space-y-3 md:max-w-xl">
+              <div class="flex flex-wrap items-center gap-2.5">
+                <span class="px-3.5 py-1 rounded-full bg-white text-[#0284C7] border border-[#BAE6FD] text-xs font-bold">
+                  Servicio Preventivo
+                </span>
+                <span class="text-xs font-semibold text-[#5B85B0]">Duración aprox. 60 min</span>
+              </div>
+              <h3 class="text-2xl font-extrabold text-[#0C4A6E]">
+                Paquete Mantenimiento Preventivo Plus
+              </h3>
+              <p class="text-sm text-[#3B6998]">
+                Ideal para equipos Split ya instalados que necesitan recuperar su máxima potencia de enfriamiento y pureza de aire.
+              </p>
+
+              <!-- Lista de beneficios incluidos con checks azules -->
+              <ul class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm font-medium text-[#0C4A6E]">
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>Lavado profundo de evaporador y turbina</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>Limpieza de condensador exterior</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>Desinfección antibacteriana de filtros</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>Medición de presión de gas y amperaje</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Precio y Botón Pill -->
+            <div class="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center gap-4 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-[#BAE6FD] md:pl-8 shrink-0">
+              <div class="md:text-right">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#5B85B0] block">Por unidad</span>
+                <span class="text-4xl font-extrabold text-[#0284C7]">$45</span>
+                <span class="text-xs font-semibold text-[#3B6998] block">USD todo incluido</span>
+              </div>
+              <button 
+                type="button" 
+                onclick="selectPackage('Paquete Mantenimiento Preventivo Plus ($45)', 'Mantenimiento Preventivo')"
+                class="btn-pill btn-pill-outline whitespace-nowrap"
+              >
+                Seleccionar Paquete
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAQUETE VERTICAL 2 (DESTACADO): Paquete Split Inverter 12,000 BTU + Instalación -->
+        <div class="rounded-[28px] bg-gradient-to-br from-[#E0F2FE] via-[#F0F9FF] to-white border-2 border-[#0284C7] p-7 sm:p-9 shadow-[0_18px_40px_-15px_rgba(2,132,199,0.2)]">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="space-y-3 md:max-w-xl">
+              <div class="flex flex-wrap items-center gap-2.5">
+                <span class="px-3.5 py-1 rounded-full bg-[#0284C7] text-white text-xs font-bold">
+                  Más Solicitado • Hogar y Oficina
+                </span>
+                <span class="text-xs font-bold text-[#1D4ED8]">Cobertura hasta 24 m²</span>
+              </div>
+              <h3 class="text-2xl font-extrabold text-[#0C4A6E]">
+                Paquete Split Inverter 12,000 BTU + Instalación
+              </h3>
+              <p class="text-sm text-[#3B6998]">
+                Solución llave en mano: equipo Full-DC Inverter R-32 ultra silencioso (19 dB) más instalación profesional certificada.
+              </p>
+
+              <!-- Lista de beneficios incluidos con checks azules -->
+              <ul class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm font-medium text-[#0C4A6E]">
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#0284C7] text-white flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>Aire Split AeroPure 12K BTU Wi-Fi</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#0284C7] text-white flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>Kit de tubería de cobre de hasta 4m</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#0284C7] text-white flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>Soportes de condensador y canaleta blanca</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#0284C7] text-white flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>1er mantenimiento preventivo gratis a 6 meses</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Precio y Botón Pill -->
+            <div class="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center gap-4 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-[#BAE6FD] md:pl-8 shrink-0">
+              <div class="md:text-right">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#1D4ED8] block">Equipo + Montaje</span>
+                <span class="text-4xl font-extrabold text-[#1D4ED8]">$549</span>
+                <span class="text-xs font-semibold text-[#3B6998] block">USD llave en mano</span>
+              </div>
+              <button 
+                type="button" 
+                onclick="selectPackage('Paquete Split Inverter 12,000 BTU + Instalación ($549)', 'Compra + Instalación Nueva')"
+                class="btn-pill btn-pill-primary whitespace-nowrap"
+              >
+                Seleccionar Paquete
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAQUETE VERTICAL 3: Paquete Climatización Total 24,000 BTU + Mantenimiento Anual -->
+        <div class="rounded-[28px] bg-[#F0F9FF] border border-[#BAE6FD] p-7 sm:p-9 transition-all hover:border-[#38BDF8]">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="space-y-3 md:max-w-xl">
+              <div class="flex flex-wrap items-center gap-2.5">
+                <span class="px-3.5 py-1 rounded-full bg-white text-[#1D4ED8] border border-[#BAE6FD] text-xs font-bold">
+                  Alta Capacidad • Salas y Locales
+                </span>
+                <span class="text-xs font-semibold text-[#5B85B0]">Cobertura hasta 52 m²</span>
+              </div>
+              <h3 class="text-2xl font-extrabold text-[#0C4A6E]">
+                Paquete Climatización Total 24,000 BTU + Plan Anual
+              </h3>
+              <p class="text-sm text-[#3B6998]">
+                Potencia superior Twin-Rotary SEER 23 con flujo de aire 4D de largo alcance, instalación completa y póliza de mantenimiento anual.
+              </p>
+
+              <!-- Lista de beneficios incluidos con checks azules -->
+              <ul class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm font-medium text-[#0C4A6E]">
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>Equipo Split AeroMax 24K BTU R-32</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>Instalación eléctrica e hidráulica certificada</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>2 mantenimientos preventivos en el primer año</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0 text-xs font-bold">✓</span>
+                  <span>10 años de garantía en compresor Inverter</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Precio y Botón Pill -->
+            <div class="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center gap-4 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-[#BAE6FD] md:pl-8 shrink-0">
+              <div class="md:text-right">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#5B85B0] block">Paquete Completo</span>
+                <span class="text-4xl font-extrabold text-[#0284C7]">$949</span>
+                <span class="text-xs font-semibold text-[#3B6998] block">USD todo incluido</span>
+              </div>
+              <button 
+                type="button" 
+                onclick="selectPackage('Paquete Climatización Total 24,000 BTU + Plan Anual ($949)', 'Compra + Instalación Nueva')"
+                class="btn-pill btn-pill-outline whitespace-nowrap"
+              >
+                Seleccionar Paquete
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO INTERACTIVO DE COTIZACIÓN Y AGENDAMIENTO EN AZULES -->
+  <section id="cotizar" class="py-20 sm:py-28 bg-gradient-to-b from-[#F0F9FF] to-white border-t border-[#E0F2FE]">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        
+        <!-- Columna Izquierda: Información de Contacto en Tonos Azules -->
+        <div class="lg:col-span-5 space-y-6">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-[#E0F2FE] border border-[#BAE6FD] text-xs font-extrabold uppercase tracking-[0.16em] text-[#0284C7]">
+            Agenda Directa
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0C4A6E] leading-tight">
+            Programa tu instalación o mantenimiento
+          </h2>
+          <p class="text-sm sm:text-base text-[#3B6998] leading-relaxed">
+            Completa el formulario y una especialista de AEROFLUX te contactará en menos de 30 minutos para confirmar tu horario de visita técnica.
+          </p>
+
+          <div class="pt-4 space-y-5 border-t border-[#BAE6FD]">
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-wider text-[#0284C7]">Horario de Atención</p>
+              <p class="text-base font-bold text-[#0C4A6E] mt-0.5">Lunes a Domingo • 7:30 AM – 7:00 PM</p>
+            </div>
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-wider text-[#0284C7]">Contacto Directo & WhatsApp</p>
+              <p class="text-base font-bold text-[#1D4ED8] mt-0.5">+503 2240-8890 • hola@aerofluxclima.com</p>
+            </div>
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-wider text-[#0284C7]">Cobertura Técnica</p>
+              <p class="text-sm text-[#3B6998] mt-0.5">Servicio residencial, apartamentos, oficinas y locales comerciales con garantía escrita.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Formulario Minimalista -->
+        <div class="lg:col-span-7 bg-white p-7 sm:p-10 rounded-[30px] border border-[#BAE6FD] shadow-[0_20px_50px_-20px_rgba(2,132,199,0.14)]">
+          <form id="booking-form" class="space-y-5" novalidate>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label for="fullName" class="block text-xs font-bold text-[#0C4A6E] mb-2">
+                  Nombre completo *
+                </label>
+                <input 
+                  type="text" 
+                  id="fullName" 
+                  name="fullName" 
+                  required 
+                  placeholder="Ej. Laura Solórzano"
+                  class="blue-input w-full px-4 py-3.5 text-sm"
+                />
+              </div>
+
+              <div>
+                <label for="phone" class="block text-xs font-bold text-[#0C4A6E] mb-2">
+                  Teléfono / WhatsApp *
+                </label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
+                  required 
+                  placeholder="Ej. +503 7890-1234"
+                  class="blue-input w-full px-4 py-3.5 text-sm"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label for="email" class="block text-xs font-bold text-[#0C4A6E] mb-2">
+                  Correo electrónico *
+                </label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required 
+                  placeholder="laura@ejemplo.com"
+                  class="blue-input w-full px-4 py-3.5 text-sm"
+                />
+              </div>
+
+              <div>
+                <label for="serviceType" class="block text-xs font-bold text-[#0C4A6E] mb-2">
+                  Tipo de servicio *
+                </label>
+                <select id="serviceType" name="serviceType" required class="blue-input w-full px-4 py-3.5 text-sm font-medium">
+                  <option value="Compra + Instalación Nueva">Compra + Instalación Nueva</option>
+                  <option value="Mantenimiento Preventivo">Mantenimiento Preventivo</option>
+                  <option value="Diagnóstico y Carga Gas R-32">Diagnóstico y Carga Gas R-32</option>
+                  <option value="Asesoría de Capacidad BTU">Asesoría de Capacidad BTU</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label for="equipment" class="block text-xs font-bold text-[#0C4A6E] mb-2">
+                  Paquete seleccionado
+                </label>
+                <select id="equipment" name="equipment" class="blue-input w-full px-4 py-3.5 text-sm font-medium">
+                  <option value="Evaluación técnica en sitio">Evaluación técnica en sitio</option>
+                  <option value="Paquete Mantenimiento Preventivo Plus ($45)">Paquete Mantenimiento Preventivo Plus ($45)</option>
+                  <option value="Paquete Split Inverter 12,000 BTU + Instalación ($549)">Paquete Split Inverter 12,000 BTU + Instalación ($549)</option>
+                  <option value="Paquete Climatización Total 24,000 BTU + Plan Anual ($949)">Paquete Climatización Total 24,000 BTU + Plan Anual ($949)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="preferredDate" class="block text-xs font-bold text-[#0C4A6E] mb-2">
+                  Fecha preferida de visita
+                </label>
+                <input 
+                  type="date" 
+                  id="preferredDate" 
+                  name="preferredDate" 
+                  class="blue-input w-full px-4 py-3.5 text-sm font-medium"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="notes" class="block text-xs font-bold text-[#0C4A6E] mb-2">
+                Dirección o detalles adicionales
+              </label>
+              <textarea 
+                id="notes" 
+                name="notes" 
+                rows="3" 
+                placeholder="Indica tu zona/colonia, cantidad de unidades o altura de instalación..."
+                class="blue-input w-full px-4 py-3 text-sm resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Mensaje de error inline -->
+            <div id="form-error" class="hidden text-xs font-semibold text-[#1D4ED8] bg-[#E0F2FE] border border-[#BAE6FD] px-4 py-3 rounded-2xl">
+              Por favor completa tu nombre, teléfono de contacto y un correo electrónico válido.
+            </div>
+
+            <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <span class="text-xs font-medium text-[#5B85B0]">Respuesta garantizada en menos de 30 min</span>
+              <button type="submit" class="btn-pill btn-pill-primary">
+                <span>Confirmar Solicitud</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Confirmación Visual con Folio -->
+          <div id="form-success" class="hidden p-8 rounded-[24px] bg-[#F0F9FF] border border-[#BAE6FD] space-y-4">
+            <div class="flex items-center gap-3.5">
+              <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-[#0284C7] to-[#1D4ED8] text-white flex items-center justify-center font-bold shrink-0">
+                ✓
+              </div>
+              <div>
+                <h3 class="text-lg font-extrabold text-[#0C4A6E]">¡Solicitud Registrada con Éxito!</h3>
+                <p id="folio-code" class="text-xs font-mono font-bold text-[#0284C7]">Folio Técnico: #AF-2026-104</p>
+              </div>
+            </div>
+            <p id="success-summary" class="text-sm text-[#3B6998] leading-relaxed"></p>
+            <div class="pt-2">
+              <button type="button" id="reset-form-btn" class="btn-pill btn-pill-outline h-10 px-5 text-xs">
+                Agendar otra solicitud
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER MINIMALISTA EN AZUL SUAVE -->
+  <footer class="bg-[#F0F9FF] border-t border-[#BAE6FD]">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-12 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-[#3B6998]">
+      <div class="flex items-center gap-2.5 font-extrabold text-sm text-[#0C4A6E]">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#0284C7]"></span>
+        <span>AEROFLUX Climatización</span>
+      </div>
+
+      <p class="font-medium">© 2026 AEROFLUX Ingeniería Térmica. Todos los derechos reservados.</p>
+
+      <div class="flex items-center gap-6 font-bold text-[#0284C7]">
+        <a href="#inicio" class="hover:text-[#1D4ED8] transition-colors">Inicio</a>
+        <a href="#bento-soluciones" class="hover:text-[#1D4ED8] transition-colors">Servicios</a>
+        <a href="#especialistas" class="hover:text-[#1D4ED8] transition-colors">Equipo</a>
+        <a href="#paquetes" class="hover:text-[#1D4ED8] transition-colors">Paquetes</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT INTERACTIVO -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Menú móvil
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileDrawer = document.getElementById('mobile-drawer');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      mobileBtn.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('hidden');
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileDrawer.classList.add('hidden');
+        });
+      });
+
+      // Fecha mínima de hoy
+      const dateInput = document.getElementById('preferredDate');
+      if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+        dateInput.value = today;
+      }
+
+      // Validación y envío del formulario
+      const form = document.getElementById('booking-form');
+      const formError = document.getElementById('form-error');
+      const formSuccess = document.getElementById('form-success');
+      const successSummary = document.getElementById('success-summary');
+      const folioCode = document.getElementById('folio-code');
+      const resetFormBtn = document.getElementById('reset-form-btn');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const fullName = document.getElementById('fullName').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const serviceType = document.getElementById('serviceType').value;
+        const equipment = document.getElementById('equipment').value;
+        const preferredDate = document.getElementById('preferredDate').value;
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!fullName || !phone || !emailRegex.test(email)) {
+          formError.classList.remove('hidden');
+          return;
+        }
+
+        formError.classList.add('hidden');
+
+        const randomFolio = Math.floor(100 + Math.random() * 900);
+        folioCode.textContent = `Folio Técnico: #AF-2026-${randomFolio}`;
+
+        const dateText = preferredDate ? ` para el ${preferredDate}` : '';
+        successSummary.innerHTML = `Gracias, <strong class="text-[#0C4A6E]">${fullName}</strong>. Hemos reservado tu solicitud de <strong class="text-[#1D4ED8]">${serviceType}</strong> (<strong class="text-[#0284C7]">${equipment}</strong>)${dateText}. Nuestro equipo técnico se comunicará contigo al <strong class="text-[#0C4A6E]">${phone}</strong> en breve.`;
+
+        form.classList.add('hidden');
+        formSuccess.classList.remove('hidden');
+      });
+
+      resetFormBtn.addEventListener('click', () => {
+        form.reset();
+        formSuccess.classList.add('hidden');
+        form.classList.remove('hidden');
+      });
+    });
+
+    // Selección directa desde los paquetes verticales hacia el formulario
+    function selectPackage(packageName, serviceCategory) {
+      const serviceSelect = document.getElementById('serviceType');
+      const equipmentSelect = document.getElementById('equipment');
+      const quoteSection = document.getElementById('cotizar');
+
+      if (serviceSelect && serviceCategory) {
+        serviceSelect.value = serviceCategory;
+      }
+      if (equipmentSelect && packageName) {
+        equipmentSelect.value = packageName;
+      }
+
+      document.getElementById('form-success').classList.add('hidden');
+      document.getElementById('booking-form').classList.remove('hidden');
+
+      quoteSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
